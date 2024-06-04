@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark light">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Rajdhani:wght@300;400;500;600;700&family=Teko:wght@300..700&display=swap" rel="stylesheet">
+    <link href="./dist/css/main.css" rel="stylesheet" crossorigin="anonymous">
+</head>
+<body>
+    <header>
+        <a href="/">Logo</a>
+        <nav class="">
+            <ul>
+                <li><a href="#">Login</a></li>
+                <li><a href="#">Signup</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="container-sm">
+            <form action="#" onsubmit="return validation()">
+                <h2>Personal Details</h2>
+                <div class="field-group">
+                    <label for="fullName" class="field-label">Full Name <small>*</small></label>
+                    <input type="text" name="fullName" class="field-input" id="fullName" autocomplete="off" required />
+                    <span id="fullNameValidation" class="field-note"></span>
+                </div>
+                <article class="grid grid-2">
+                    <div class="field-group">
+                        <label for="email" class="field-label">Email Address <small>*</small></label>
+                        <input type="email" name="email" class="field-input" id="email" autocomplete="off" required />
+                        <span id="emailValidation" class="field-note"></span>
+                    </div>
+                    <div class="field-group">
+                        <label for="phone" class="field-label">Phone Number <small>*</small></label>
+                        <input type="text" name="phone" class="field-input" id="phone" autocomplete="off" required />
+                        <span id="phoneValidation" class="field-note"></span>
+                    </div>
+                </article>
+                <div class="field-group">
+                    <label>
+                        <input type="radio" name="maritalStatus" id="Unmarried" checked />
+                        <span>Unmarried</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="maritalStatus" id="married" />
+                        <span>Married</span>
+                    </label>
+                </div>
+                <div class="field-group">
+                    <label for="maritalStatus_">Marital Status</label>
+                    <select class="field-input" name="maritalStatus_" id="maritalStatus_">
+                        <option value="-1">Choose ---</option>
+                        <option value="unmarried">Unmarried</option>
+                        <option value="married">Married</option>
+                    </select>
+                </div>
+    
+                <h2>Income Details</h2>
+    
+            
+    
+            <input
+                type="submit"
+                name="submit"
+                value="Submit"
+                class="btn btn-primary"
+                autocomplete="off"
+            />
+            <input
+                type="reset"
+                name="reset"
+                value="Reset"
+                class="btn btn-secondary"
+                autocomplete="off"
+            />
+            &emsp;&emsp;&emsp;Already have an account?
+            <a href="login.html">Login</a>
+            </form>
+        </div>
+
+    </main>
+    <footer>
+        <p>&copy; 2024</p>
+    </footer>
+    <script type="module" src="./dist/main.js"></script>
+</body>
+</html>

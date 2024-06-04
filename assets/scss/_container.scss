@@ -1,0 +1,33 @@
+.container {
+	max-width: $container;
+
+	&,
+	&-fluid,
+	&-lg,
+	&-sm,
+	&-xxl,
+	&-xxxl {
+		width: 100%;
+		padding-left: 15px;
+		padding-right: 15px;
+		margin: 0 auto;
+	}
+
+	&-lg {
+		max-width: $container-lg;
+	}
+
+	&-sm {
+		max-width: $container-small;
+	}
+
+	&-xxl {
+		max-width: $container-xxl;
+	}
+
+	&-xxxl {
+		padding-left: 0;
+		padding-right: 0;
+		max-width: $container-xxxl;
+	}
+}

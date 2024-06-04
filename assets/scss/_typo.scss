@@ -1,0 +1,72 @@
+html {
+	font-size: $font-base-size;
+	text-size-adjust: 100%;
+}
+
+body,
+button,
+input,
+select,
+optgroup,
+textarea {
+	font-family: $font-poppins;
+	font-style: normal;
+    font-weight: 400;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	margin: 0;
+	padding: 0;
+	line-height: 1.15;
+	font-weight: 600;
+
+	strong {
+		font-weight: 700;
+		color: $primary;
+	}
+
+}
+
+p {
+	font-size: 1rem;
+	line-height: 1.2;
+
+	a[href^="https://"],
+	a[href^="#"] {
+		color: $primary;
+		border-bottom: 1px solid $primary;
+		transition: 300ms;
+
+		&:hover,
+		&:focus,
+		&:hover:focus {
+			border-bottom-color: transparent;
+		}
+	}
+}
+
+a {
+	text-decoration: none;
+
+	&[role="button"] {
+		cursor: pointer;
+	}
+
+	&[href*="tel"],
+	&[href*="mailto"] {
+		transition: 300ms;
+		color: $primary;
+		border-bottom: 1px solid transparent;
+
+		&:hover,
+		&:focus {
+			color: $primary;
+			border-bottom-color: $primary;
+		}
+	}
+}
