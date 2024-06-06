@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,82 +11,129 @@
     <link href="./dist/css/main.css" rel="stylesheet" crossorigin="anonymous">
 </head>
 <body>
-    <header>
-        <a href="/">Logo</a>
-        <nav class="">
-            <ul>
-                <li><a href="#">Login</a></li>
-                <li><a href="#">Signup</a></li>
-            </ul>
-        </nav>
+    <header class="site-header">
+        <div class="container-sm">
+            <h1 class="text-15"><strong>NEPAL</strong> - Income Tax Calculator </h1>
+        </div>
     </header>
     <main>
         <div class="container-sm">
-            <form action="#" onsubmit="return validation()">
+            <form id="itaxcalc" class="form" action="#" onsubmit="return validateAndCalculate()">
                 <h2>Personal Details</h2>
+                <div class="tax-info" id="taxDetails"></div>
                 <div class="field-group">
                     <label for="fullName" class="field-label">Full Name <small>*</small></label>
-                    <input type="text" name="fullName" class="field-input" id="fullName" autocomplete="off" required />
+                    <input type="text" name="fullName" class="field-input" id="fullName" />
                     <span id="fullNameValidation" class="field-note"></span>
                 </div>
-                <article class="grid grid-2">
+                <div class="grid grid-2">
                     <div class="field-group">
                         <label for="email" class="field-label">Email Address <small>*</small></label>
-                        <input type="email" name="email" class="field-input" id="email" autocomplete="off" required />
+                        <input type="email" name="email" class="field-input" id="email" />
                         <span id="emailValidation" class="field-note"></span>
                     </div>
                     <div class="field-group">
                         <label for="phone" class="field-label">Phone Number <small>*</small></label>
-                        <input type="text" name="phone" class="field-input" id="phone" autocomplete="off" required />
+                        <input type="text" name="phone" class="field-input" id="phone" />
                         <span id="phoneValidation" class="field-note"></span>
                     </div>
-                </article>
-                <div class="field-group">
-                    <label>
-                        <input type="radio" name="maritalStatus" id="Unmarried" checked />
+                </div>
+                <div class="field-group grid grid-4">
+                    <label class="field-label flex-flex">
+                        <input class="field-input--radio" type="radio" name="maritalStatus" id="Unmarried" value="Unmarried" checked />
                         <span>Unmarried</span>
                     </label>
-                    <label>
-                        <input type="radio" name="maritalStatus" id="married" />
+                    <label class="field-label flex-flex">
+                        <input class="field-input--radio" type="radio" name="maritalStatus" id="married" value="Married" />
                         <span>Married</span>
                     </label>
                 </div>
-                <div class="field-group">
-                    <label for="maritalStatus_">Marital Status</label>
-                    <select class="field-input" name="maritalStatus_" id="maritalStatus_">
-                        <option value="-1">Choose ---</option>
-                        <option value="unmarried">Unmarried</option>
-                        <option value="married">Married</option>
-                    </select>
-                </div>
-    
                 <h2>Income Details</h2>
-    
-            
-    
-            <input
-                type="submit"
-                name="submit"
-                value="Submit"
-                class="btn btn-primary"
-                autocomplete="off"
-            />
-            <input
-                type="reset"
-                name="reset"
-                value="Reset"
-                class="btn btn-secondary"
-                autocomplete="off"
-            />
-            &emsp;&emsp;&emsp;Already have an account?
-            <a href="login.html">Login</a>
+                <div class="grid grid-3">
+                    <div class="field-group">
+                        <label for="monthlyBasicIncome" class="field-label">Monthly Salary (Basic) <small>*</small></label>
+                        <input type="text" min="0" name="monthlyBasicIncome" class="field-input" id="monthlyBasicIncome" />
+                        <span id="monthlyBasicValidation" class="field-note"></span>
+                    </div>
+                    <div class="field-group">
+                        <label for="monthlyAllowanceIncome" class="field-label">Monthly Salary (Allowance) <small>*</small></label>
+                        <input type="text" min="0" name="monthlyAllowanceIncome" class="field-input" id="monthlyAllowanceIncome" />
+                        <span id="monthlyAllowanceValidation" class="field-note"></span>
+                    </div>
+                    <div class="field-group">
+                        <label for="totalMonth" class="field-label">Total Month <small>*</small></label>
+                        <select id="totalMonth" class="field-input">
+                            <option>01</option>
+                            <option>02</option>
+                            <option>03</option>
+                            <option>04</option>
+                            <option>05</option>
+                            <option>06</option>
+                            <option>07</option>
+                            <option>08</option>
+                            <option>09</option>
+                            <option>10</option>
+                            <option>11</option>
+                            <option>12</option>
+                        </select>
+                        <span id="totalMonthlyValidation" class="field-note"></span>
+                    </div>
+                </div>
+                <div class="field-group">
+                    <label class="field-label flex-flex">
+                        <input class="field-input--check" type="checkbox" name="bonusCheck" id="bonusCheck" >
+                        <span>Bonus</span>
+                    </label>
+                    <input type="text" min="0" name="bonus" class="field-input" id="bonus" />
+                </div>
+                <h2>Deductions</h2>
+                <div class="grid grid-3">
+                    <div class="field-group">
+                        <div class="flex-flex">
+                            <label class="field-label flex-flex">
+                                <input class="field-input--check" type="checkbox" name="ssfCheck" id="ssfCheck" >
+                            </label>
+                            <label for="ssfCheck" class="field-label">SSF (Social Security Fund)</label>
+                        </div>
+                        <input type="text" min="0" name="ssf" class="field-input" id="ssf" />
+                    </div>
+                    <div class="field-group">
+                        <label class="field-label flex-flex">
+                            <input class="field-input--check" type="checkbox" name="citCheck" id="citCheck" >
+                            <span>CIT (Citizen Investment Trust)</span>
+                        </label>
+                        <input type="text" min="0" name="cit" class="field-input" id="cit" />
+                    </div>
+                    <div class="field-group">
+                        <label class="field-label flex-flex">
+                            <input class="field-input--check" type="checkbox" name="pfCheck" id="pfCheck" >
+                            <span>PF (Provident Fund)</span>
+                        </label>
+                        <input type="text" min="0" name="pf" class="field-input" id="pf" />
+                    </div>
+                </div>
+                <h2>Insurance</h2>
+                <div class="grid grid-2">
+                    <div class="field-group">
+                        <label class="field-label flex-flex">
+                            <input class="field-input--check" type="checkbox" name="lifeInsuranceCheck" id="lifeInsuranceCheck" value="40000" >
+                            <span>Life Insurance ( Max Limit is Rs. 40,000 )</span>
+                        </label>
+                    </div>
+                    <div class="field-group">
+                        <label class="field-label flex-flex">
+                            <input class="field-input--check" type="checkbox" name="healthInsuranceCheck" id="healthInsuranceCheck" value="20000" >
+                            <span>Health Insurance ( Max Limit is Rs. 20,000 )</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="field-group--buttons">
+                    <input type="submit" name="submit" value="Submit" class="btn btn-primary">
+                    <input type="reset" name="reset" value="Reset" class="btn btn-secondary">
+                </div>
             </form>
         </div>
-
     </main>
-    <footer>
-        <p>&copy; 2024</p>
-    </footer>
-    <script type="module" src="./dist/main.js"></script>
+    <script src="assets/js/main.js"></script>
 </body>
 </html>
