@@ -2,16 +2,22 @@ const monthlyBasicIncomeField = document.getElementById('monthlyBasicIncome');
 const monthlyAllowanceIncomeField = document.getElementById('monthlyAllowanceIncome');
 const ssfField = document.getElementById('ssf');
 const ssfCheck = document.getElementById('ssfCheck');
+const maritalStatusField = document.getElementsByName('maritalStatus');
+
+const lifeInsuranceCheckField = document.getElementById('lifeInsuranceCheck');
+const healthInsuranceCheckField = document.getElementById('healthInsuranceCheck');
 
 let basic = 0;
 let allowance = 0;
+insurance = 0;
 let ssf = 0;
+let maritalStatus = maritalStatusField[0].value;
 
 // Allowance Calculation
 monthlyBasicIncomeField.addEventListener('blur', function() {
-    basic = parseFloat(monthlyBasicIncomeField.value);
+    basic = parseFloat(monthlyBasicIncomeField.value, 10) || 0;
     allowance = (basic / 0.6) * 0.4;
-    monthlyAllowanceIncomeField.value = `${allowance}`;
+    monthlyAllowanceIncomeField.value = allowance;
 })
 
 // SSF Calculation
@@ -24,35 +30,67 @@ ssfCheck.addEventListener('change', function(e) {
     }
 })
 
+// Martial Status
+maritalStatusField.forEach(function(item) {
+    item.addEventListener('change', function() {
+        maritalStatus = item.value;
+    })
+})
+
+let deductions = {};
+
+// SSF Calculation
+function checkboxes() {
+    let elements = document.querySelectorAll('input[type="checkbox"]');
+
+    elements.forEach((item) => {
+        item.addEventListener('change', (e) => {
+            let keey = e.currentTarget.getAttribute('name');
+            let keeyvalue = e.currentTarget.value;
+            let field = document.getElementById(`${e.currentTarget.dataset.field}`);
+
+            if(e.currentTarget.checked) {
+                deductions = {...deductions, [keey]: keeyvalue === '' ? true : keeyvalue};
+                field?.removeAttribute("disabled");
+                console.log(deductions);
+
+                return deductions;
+            }
+
+            field?.setAttribute("disabled", "");
+            deductions = {...deductions, [keey]: false};
+            console.log(deductions);
+            return deductions;
+        })
+    })
+}
+checkboxes();
+
 function validateAndCalculate() {
     // Personal Info
     const fullName = document.getElementById('fullName').value;
     const email = document.getElementById('email').value;
     const phone = document.getElementById('phone').value;
-    const maritalStatus = document.getElementsByName('maritalStatus')[0].value;
-
     const totalMonth = Number(document.getElementById('totalMonth').value);
-    const bonus = parseFloat(document.getElementById('bonus').value);
+    const bonus = parseFloat(document.getElementById('bonus').value) || 0;
 
     // Deduction ( Saving/ Investment )
     const cit = parseFloat(document.getElementById('cit').value) || 0;
     const pf = parseFloat(document.getElementById('pf').value) || 0;
 
-    // Deduction - Insurance
-    const lifeInsuranceCheck = Number(document.getElementById('lifeInsuranceCheck').value) || 0;
-    const healthInsuranceCheck = Number(document.getElementById('healthInsuranceCheck').value) || 0;
     let printData = document.getElementById('taxDetails');
 
     // Email & Phone Validation
-    if (!validateEmail(email) || !validatePhone(phone)) {
-        return false;
-    }
+    // if (!validateEmail(email) || !validatePhone(phone)) {
+    //     return false;
+    // }
 
     const totalDeductions = (ssf + cit + pf) * totalMonth;
     const salaryMonthly = basic + allowance;
     const salaryAnnually = (salaryMonthly  * totalMonth) + bonus;
-    const insurance = lifeInsuranceCheck + healthInsuranceCheck;
+    insurance = (Number(deductions?.lifeInsuranceCheck) || 0) +  (Number(deductions?.healthInsuranceCheck) || 0)
     const taxableIncome = salaryAnnually - (totalDeductions + insurance);
+    console.log(insurance)
     let tax = 0;
 
     if (maritalStatus === 'Unmarried') {
@@ -61,6 +99,8 @@ function validateAndCalculate() {
         tax = calculateTaxMarried(taxableIncome);
     }
 
+    const monthlySalaryInBank = salaryMonthly - ( (basic * 0.11) + cit + pf + (tax / totalMonth));
+
     const result = {
         fullName,
         email,
@@ -68,9 +108,9 @@ function validateAndCalculate() {
         maritalStatus,
         taxableIncome,
         "inbank": {
-            "monthly": (salaryAnnually - (bonus + tax))/totalMonth,
+            "monthly": monthlySalaryInBank,
             "bonus": bonus,
-            "salaryAnnually": salaryAnnually - tax,
+            "salaryAnnually": (monthlySalaryInBank * totalMonth) + bonus,
         },
         "remuneration": {
             "monthly": salaryMonthly + ssf,
@@ -88,6 +128,7 @@ function validateAndCalculate() {
     };
 
     console.log(taxableIncome);
+    console.log(result)
     localStorage.setItem('taxData', JSON.stringify(result));
     printData.innerHTML = (`Income Tax Calculated: NPR ${tax}`)
     alert(`Income Tax Calculated: NPR ${tax}`);

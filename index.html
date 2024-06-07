@@ -40,7 +40,7 @@
                 </div>
                 <div class="field-group grid grid-4">
                     <label class="field-label flex-flex">
-                        <input class="field-input--radio" type="radio" name="maritalStatus" id="Unmarried" value="Unmarried" checked />
+                        <input class="field-input--radio" type="radio" name="maritalStatus" id="unmarried" value="Unmarried" checked />
                         <span>Unmarried</span>
                     </label>
                     <label class="field-label flex-flex">
@@ -81,35 +81,35 @@
                 </div>
                 <div class="field-group">
                     <label class="field-label flex-flex">
-                        <input class="field-input--check" type="checkbox" name="bonusCheck" id="bonusCheck" >
+                        <input class="field-input--check" type="checkbox" data-field="bonus" name="bonusCheck" id="bonusCheck" >
                         <span>Bonus</span>
                     </label>
-                    <input type="text" min="0" name="bonus" class="field-input" id="bonus" />
+                    <input type="text" min="0" name="bonus" class="field-input" disabled id="bonus" />
                 </div>
                 <h2>Deductions</h2>
                 <div class="grid grid-3">
                     <div class="field-group">
                         <div class="flex-flex">
                             <label class="field-label flex-flex">
-                                <input class="field-input--check" type="checkbox" name="ssfCheck" id="ssfCheck" >
+                                <input class="field-input--check" type="checkbox" data-field="ssf" name="ssfCheck" id="ssfCheck" >
+                                <span>SSF (Social Security Fund)</span>
                             </label>
-                            <label for="ssfCheck" class="field-label">SSF (Social Security Fund)</label>
                         </div>
-                        <input type="text" min="0" name="ssf" class="field-input" id="ssf" />
+                        <input type="text" min="0" name="ssf" class="field-input"  disabled id="ssf" />
                     </div>
                     <div class="field-group">
                         <label class="field-label flex-flex">
-                            <input class="field-input--check" type="checkbox" name="citCheck" id="citCheck" >
+                            <input class="field-input--check" type="checkbox" data-field="cit" name="citCheck" id="citCheck" >
                             <span>CIT (Citizen Investment Trust)</span>
                         </label>
-                        <input type="text" min="0" name="cit" class="field-input" id="cit" />
+                        <input type="text" min="0" name="cit" class="field-input" disabled id="cit" />
                     </div>
                     <div class="field-group">
                         <label class="field-label flex-flex">
-                            <input class="field-input--check" type="checkbox" name="pfCheck" id="pfCheck" >
+                            <input class="field-input--check" type="checkbox" data-field="pf" name="pfCheck" id="pfCheck" >
                             <span>PF (Provident Fund)</span>
                         </label>
-                        <input type="text" min="0" name="pf" class="field-input" id="pf" />
+                        <input type="text" min="0" name="pf" class="field-input" disabled id="pf" />
                     </div>
                 </div>
                 <h2>Insurance</h2>

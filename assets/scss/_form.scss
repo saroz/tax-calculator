@@ -47,6 +47,7 @@ input[type="radio"] {
             border-top: 1px solid #EEEEEE;
             padding-top: 1.875rem;
             margin-top: 1rem;
+            padding-bottom: 2.5rem;
         }
     }
 
@@ -76,6 +77,11 @@ input[type="radio"] {
             outline: 2px solid transparent;
             border-color: $primary;
             box-shadow: $primary 0 2px 0;
+        }
+
+        &:disabled {
+            border-color: #EEE;
+            background-color: #FAFAFA;
         }
 
         &--radio {
