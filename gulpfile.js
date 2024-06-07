@@ -13,19 +13,7 @@ const scripts = () => {
     return (
       src('./assets/js/main.js')
       .pipe(plumber())
-      .pipe(concat(`main.build.js`))
-      .pipe(
-        babel({
-          presets: [
-            [
-              "@babel/env",
-              {
-                modules: false,
-              },
-            ],
-          ],
-        })
-      )
+      .pipe(concat(`main.build.js`))      
       .pipe(uglify())
       .pipe(dest('dist/js/'))
     )
@@ -45,18 +33,32 @@ const scripts = () => {
     )
   }
 
+  // RELOAD
+const serverReload = (done) => {
+    browserSync.reload()
+    done()
+  }
+  
+
+  // WATCH TASK
+const watching = () => {
+    return (
+      watch('./assets/scss/**/*.scss', series(sass, serverReload)),
+      watch("./assets/**/*.js", series(scripts, serverReload))
+    )
+  }
+
   // SERVER
 const server = (done) => {
     browserSync.init({
     //   proxy: `${SITE_URL}`
     });
-    watch(path.watch, sass)
+    watch('./assets/scss/**/*.scss', series(sass, serverReload)),
     watch("./assets/**/*.js", series(scripts, serverReload))
   }
   
   // Export Watch 
   exports.watch = watching;
-  exports.build = build;
   exports.dev = server;
   exports.scripts = scripts;
   
